@@ -16,7 +16,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <div className="main">
+          <div className="gradient" />
+        </div>
+
+        <div className="app">
+          {/* <Nav /> */}
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
