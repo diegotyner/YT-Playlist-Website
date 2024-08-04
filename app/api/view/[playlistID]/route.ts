@@ -1,9 +1,7 @@
-import { connectToDB } from "@/utils/database";
-
 
 export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
   try {
-    await connectToDB();
+    // await connectToDB();
     return new Response(JSON.stringify({message: `Hello from backend, found ${params.playlistID}`}), { status: 200,   headers: { 'Cache-Control': 'no-store' }, })
   } catch (error) {
     console.log("Error fetching prompts:", error);
