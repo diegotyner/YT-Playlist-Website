@@ -13,6 +13,7 @@ export const config = {
      * - /create
      */
     '/profile/:path*',
+    '/create',
     '/create/:path*',
   ],
 }

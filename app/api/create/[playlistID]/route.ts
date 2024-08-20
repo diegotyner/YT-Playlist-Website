@@ -1,8 +1,40 @@
-import { createClient } from '@/utils/supabase/server';
-import {PlaylistItem} from "@/models/playlist";
+import { PlaylistItem } from "@/models/playlist";
+import { savePlaylist } from '@/utils/supabase/savePlaylist';
 
 const API_URL = process.env.YT_DATA_API_URL;
 const API_KEY = process.env.YT_DATA_API_KEY;
+
+
+
+export const POST = async (req: Request, { params }: {params: {playlistID: string, userID: string}}) => {
+  try {
+    if (!params.playlistID) {
+      return new Response("No playlistID provided", { status: 400 })
+    }
+
+    let allItems: PlaylistItem[] = []
+    let nextPageToken: string | undefined = '';
+    do {
+      const data = await fetchPlaylistItems(params.playlistID, nextPageToken)
+      allItems = allItems.concat(data.items)
+      nextPageToken = data?.nextPageToken
+      console.log("One loop")
+    } while (nextPageToken);
+    
+    // title, length, creator, thumbnail
+    const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
+    const responsePayload = {
+      metadata,
+      items: allItems
+    };
+
+    const saveResponse = await savePlaylist(params.userID, responsePayload);
+    return new Response(JSON.stringify(saveResponse), { status: 200 });
+  } catch( error ) {
+    console.error(error);
+    return new Response(JSON.stringify({ error: "Failed to add playlist" }), { status: 500 }); 
+  }
+};
 
 
 /*
@@ -18,7 +50,6 @@ Returns: {
   }
 }
 */
-
 export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
   try {
     // await connectToDB();
@@ -88,7 +119,8 @@ const fetchPlaylistMetadata = async (playlistId: string, length: number) => {
     title: playlistSnippet.title,
     length,
     creator: playlistSnippet.channelTitle,
-    thumbnails: channelThumbnail
+    creator_thumbnails: channelThumbnail,
+    code: playlistId,
   };
 };
 const fetchChannelThumbnail = async (channelId: string) => {

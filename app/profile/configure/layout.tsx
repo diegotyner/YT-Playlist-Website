@@ -23,10 +23,10 @@ export default async function configureLayout({
       <PreferenceForm
         id={user.id}
         username={
-          user.user_metadata?.custom_metadata.display_name ||
+          user.user_metadata.custom_metadata?.display_name ||
           user.user_metadata.name
         }
-        thumbnail={user.user_metadata?.custom_metadata.avatar_url}
+        thumbnail={user.user_metadata.custom_metadata?.avatar_url}
       />
       {/* id, username, thumbnail */}
     </>

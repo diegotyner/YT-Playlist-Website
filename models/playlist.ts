@@ -7,3 +7,13 @@ export interface PlaylistItem {
     resourceId: { videoId: string };
   };
 }
+export interface payload {
+  metadata: {
+    title: string;
+    length: number;
+    creator: string;
+    code: string;
+    creator_thumbnails: { [key: string]: { url: string } };
+  };
+  items: PlaylistItem[];
+}

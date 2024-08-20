@@ -43,35 +43,43 @@ const PreferenceForm = ({ id, username, thumbnail }: PreferenceProps) => {
 
   if (thumbnail && !image_list.includes(thumbnail)) image_list.push(thumbnail);
   return (
-    <div>
+    <div className="w-full">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="displayName">Display Name</label>
-        <input
-          type="text"
-          id="displayName"
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
-          required
-        ></input>
 
-        <label>Set Profile Picture</label>
-        <img
-          src={ PFP || noPFP }
-          alt="Current PFP"
-          className="clickable" // Should probably set image contain properties
-          width={100}
-          height={100}
-          onClick={() => setShowForm((prev) => !prev)}
-        />
-        {showForm && (
-          <ImageSelect
-            imageList={image_list}
-            selected={PFP}
-            callback={setPFP}
-          />
-        )}
+        <div className="flex justify-between border-2 border-indigo-600">
+          <label htmlFor="displayName">Display Name</label>
+          <input
+            type="text"
+            className="bg-gray-200"
+            id="displayName"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            required
+          ></input>
+        </div>
 
-        <button type="submit" className="clickable">Save Preferences</button>
+        <div className="border-2 border-teal-600">
+          <label>Set Profile Picture</label>
+          <div className="flex place-items-center">
+            <img
+              src={ PFP || noPFP }
+              alt="Current PFP"
+              className="clickable" // Should probably set image contain properties
+              width={100}
+              height={100}
+              onClick={() => setShowForm((prev) => !prev)}
+            />
+            {showForm && (
+              <ImageSelect
+                imageList={image_list}
+                selected={PFP}
+                callback={setPFP}
+              />
+            )}
+          </div>
+        </div>
+
+        <button type="submit" className="clickable bg-green-400 rounded-lg text-center">Save Preferences</button>
       </form>
     </div>
   );

@@ -22,9 +22,9 @@ const Nav = async () => {
       {/* Desktop */}
       <div className='sm:flex hidden'>
         <div className='flex gap-3 md:gap-5'>
-          <Link className='flex items-center' href='profile'>
+          <Link className='flex items-center' href='/profile'>
             Profile
-            <img src={data.session?.user.user_metadata.custom_metadata.avatar_url || "/icons/add_pfp.svg"} 
+            <img src={data.session?.user.user_metadata.custom_metadata?.avatar_url || "/icons/add_pfp.svg"} 
               alt="Go to profile"
               className="clickable" // Should probably set image contain properties
               width={100}
@@ -37,8 +37,8 @@ const Nav = async () => {
       {/* Mobile */}
       <div className='sm:hidden flex'>
       <div className='flex gap-3 md:gap-5'>
-          <Link className='flex items-center' href='profile'>
-            <img src={data.session?.user.user_metadata.custom_metadata.avatar_url || "/icons/add_pfp.svg"} 
+          <Link className='flex items-center' href='/profile'>
+            <img src={data.session?.user.user_metadata.custom_metadata?.avatar_url || "/icons/add_pfp.svg"} 
               alt="Go to profile"
               className="clickable" // Should probably set image contain properties
               width={100}

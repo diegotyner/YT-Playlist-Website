@@ -31,6 +31,23 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
     }
     const playlistCode = match[1] || match[3];
     console.log(playlistCode);
+    try {
+      const response = await fetch(`api/create/${playlistCode}`, {
+        method: "POST",
+        body: JSON.stringify({
+          // playlistID: playlistCode,
+          userID: id,
+        })
+      })
+      const content = await response.json();
+      if (!content.success) throw content.error 
+      
+      console.log("Successfully created playlist")
+
+    } catch ( error ) {
+      console.log(error)
+      alert("Failed to create playlist")
+    }
   };
 
   return (
@@ -48,7 +65,7 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
           style={{ resize: 'none', overflow: 'hidden', width: '100%' }}
         />
         <button type="submit" className="clickable bg-green-400 rounded-lg">
-          Save Preferences
+          Add playlist
         </button>
       </form>
     </div>
