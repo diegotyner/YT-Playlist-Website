@@ -41,9 +41,8 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
       })
       const content = await response.json();
       if (!content.success) throw content.error 
-      
       console.log("Successfully created playlist")
-
+      alert("Successfully created")
     } catch ( error ) {
       console.log(error)
       alert("Failed to create playlist")

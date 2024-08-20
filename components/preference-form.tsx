@@ -29,6 +29,8 @@ const PreferenceForm = ({ id, username, thumbnail }: PreferenceProps) => {
         }
         if (pathname == "/profile/configure/set-up") router.push('/profile/configure');
       }; 
+
+      alert("Preferences saved successfully")
     } catch (error) {
       alert("Submission Failed")
       console.error('Error:', error);
