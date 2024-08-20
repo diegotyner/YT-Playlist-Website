@@ -15,7 +15,7 @@ interface DataReturn {
 }
 */
 
-export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
+export const GET = async (req: Request) => {
   try {
     const { data, error } = await getHomePage();
     if (error) return new Response(JSON.stringify(error), { status: 500,   headers: { 'Cache-Control': 'no-store' }, })

@@ -59,7 +59,7 @@ export const getHomePage = async (): Promise<GetHomePageResult> => {
   `)
   .limit(5, { foreignTable: 'playlist_to_videos' })
   .returns<PlaylistData[]>()
-  .order('added_at', { ascending: false, foreignTable: 'playlist_to_videos' });
+  .order('created_at', { ascending: false, foreignTable: 'playlist_to_videos' });
   if (creatorError) return {error: creatorError}
 
   return {data: creatorData}

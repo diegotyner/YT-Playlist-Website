@@ -1,5 +1,5 @@
 import { PlaylistItem } from "@/models/playlist";
-import { savePlaylist } from '@/utils/supabase/savePlaylist';
+import { savePlaylist } from "@/utils/queries/savePlaylist";
 
 const API_URL = process.env.YT_DATA_API_URL;
 const API_KEY = process.env.YT_DATA_API_KEY;
