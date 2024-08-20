@@ -37,7 +37,7 @@ export default function Home() {
       {!responseData ? <p>No data yet</p> : (
         <>
           <div className="flex flex-wrap gap-4">
-            {responseData.map(item => (<PlaylistCard avator_url={item.avator_url} creator_name={item.creator_name} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
+            {responseData.map((item, index) => (<PlaylistCard key={index} avator_url={item.avator_url} creator_name={item.creator_name} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
           </div>
           {/* <div className="grid grid-flow-row auto-rows-max gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(700px, 1fr))' }}>
             {responseData.map(item => (<PlaylistCard avator_url={item.avator_url} creator_name={item.creator_name} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}

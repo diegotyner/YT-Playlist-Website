@@ -11,7 +11,7 @@ interface payload {
   playlistData: { username: string, thumbnail: string},
   videos: { title: string, video_id: string, thumbnail: string, video_code: string }[]
 }
-const viewPlaylist = ({ params }: {params: {playlistID: string}}) => {
+const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
   const [responseData, setResponseData] = useState<payload | null>(null);
   const examplePlaylist = "64ed6898-1e7a-4411-8fc6-d1bf544e5bc3";
   useEffect(() => {
@@ -47,4 +47,4 @@ const viewPlaylist = ({ params }: {params: {playlistID: string}}) => {
   )
 };
 
-export default viewPlaylist
+export default ViewPlaylist
