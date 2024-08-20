@@ -9,7 +9,7 @@ interface ProfilePayload {
   title: string;
   videos: string[];  
 }
-const page = () => {
+const Profile = () => {
   const [playlists, setPlaylists] = useState<ProfilePayload[] | null>(null);
 
   useEffect(() => {
@@ -36,4 +36,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Profile;
