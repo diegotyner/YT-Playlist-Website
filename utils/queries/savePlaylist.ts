@@ -26,7 +26,7 @@ export async function savePlaylist(userId: string, playlistPayload: payload) {
           .filter(item => item.snippet.title !== 'Deleted video') 
           .map(item => ({
             title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.default.url,
+            thumbnail: item.snippet.thumbnails.medium.url,
             video_code: item.snippet.resourceId.videoId,
           })), {onConflict: 'video_code'}
       )

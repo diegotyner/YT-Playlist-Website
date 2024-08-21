@@ -18,6 +18,10 @@ const Create = async() => {
       <h1>
         Enter the link to either a youtube playlist, or a video in a youtube playlist
       </h1>
+      <h2>
+        (It cannot be a shortened "share url" of a video as this will remove the playlist identifier)
+      </h2>
+
 
       <PlaylistURLForm id={data.user.id}/>
     </>
