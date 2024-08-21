@@ -19,7 +19,7 @@ const Create = async() => {
         Enter the link to either a youtube playlist, or a video in a youtube playlist
       </h1>
       <h2>
-        (It cannot be a shortened "share url" of a video as this will remove the playlist identifier)
+        (It cannot be a shortened &quot;share url&quot; of a video as this will remove the playlist identifier)
       </h2>
 
 
