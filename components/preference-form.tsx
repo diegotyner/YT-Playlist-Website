@@ -60,7 +60,7 @@ const PreferenceForm = ({ id, username, thumbnail }: PreferenceProps) => {
           ></input>
         </div>
 
-        <div className="border-2 border-teal-600">
+        <div className="border-2 border-teal-600 my-2">
           <label>Set Profile Picture</label>
           <div className="flex place-items-center">
             <img
@@ -81,7 +81,7 @@ const PreferenceForm = ({ id, username, thumbnail }: PreferenceProps) => {
           </div>
         </div>
 
-        <button type="submit" className="clickable bg-green-400 rounded-lg text-center">Save Preferences</button>
+        <button type="submit" className="clickable bg-green-400 rounded-2xl text-center py-1 px-3">Save Preferences</button>
       </form>
     </div>
   );
@@ -97,7 +97,7 @@ function ImageSelect({
   callback: (value: string) => void;
 }) {
   return (
-    <div>
+    <div className="flex flex-wrap items-center">
       {imageList.map((url) => (
         <div
           key={url}

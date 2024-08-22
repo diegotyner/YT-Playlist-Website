@@ -63,7 +63,7 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
           rows={1}
           style={{ resize: 'none', overflow: 'hidden', width: '100%' }}
         />
-        <button type="submit" className="clickable bg-green-400 rounded-lg">
+        <button type="submit" className="clickable bg-green-400 rounded-full py-1 px-3 mb-10">
           Add playlist
         </button>
       </form>

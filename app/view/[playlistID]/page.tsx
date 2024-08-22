@@ -8,7 +8,11 @@ Returns:
   videos: { title, video_id, thumbnail, video_code }
 */
 interface payload {
-  playlistData: { username: string, thumbnail: string},
+  playlistData: {
+    user_preferences: { username: string, thumbnail: string},
+    title: string,
+    playlist_code: string
+  },
   videos: { title: string, video_id: string, thumbnail: string, video_code: string }[]
 }
 const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
@@ -25,7 +29,6 @@ const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
       });
     console.log(responseData)
   }, []);
-  console.log(params.playlistID)
   
 
   return (
@@ -36,10 +39,14 @@ const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
         slow, 5 seconds expected)
       </p> // Add loadup screen
     ) : (
-      <div className='w-full'>
-        <VideoCard title={responseData.playlistData.username} thumbnail={responseData.playlistData.thumbnail}/>
+      <div className='w-full flex flex-wrap justify-center'>
+        <p className='text-2xl font-bold w-full text-center'>{responseData.playlistData.title}</p>
+        <div className='w-full'>
+          <hr className='w-56 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700'/>
+        </div>
+        <VideoCard title={responseData.playlistData.user_preferences.username} thumbnail={responseData.playlistData.user_preferences.thumbnail}/>
         {responseData.videos.map((item, index) => (
-          <VideoCard key={index} title={item.title} thumbnail={item.thumbnail}/>
+          <VideoCard key={index} title={item.title} thumbnail={item.thumbnail} url={`https://www.youtube.com/watch?v=${item.video_code}&list=${responseData.playlistData.playlist_code}`}/>
         ))}
       </div>
     )}

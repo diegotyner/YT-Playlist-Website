@@ -24,11 +24,11 @@ const Profile = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <Link href={'/profile/configure'} className="clickable bg-green-400 rounded-lg text-center">Configure</Link>
+      <Link href={'/profile/configure'} className="clickable bg-green-400 rounded-2xl text-center px-3 m-1">Configure</Link>
       This is my profile
 
       {!playlists ? <p>No data yet</p> : (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 m-5">
           {playlists.map((item, index) => (<PlaylistCard key={index} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
         </div>
       )}
