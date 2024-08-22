@@ -34,15 +34,8 @@ const PlaylistCard = ({avator_url, creator_name, playlist_id, title, videos}: pl
   return (
     <>
       <div className='w-[400px] border-2 border-neutral-400 p-3 rounded-2xl'>
-        {/* <Link href={`view/${playlist_id}`} className='grid grid-cols-5 pt-5 hover:bg-slate-200'>
-          {videos.map((item, index) => (<img className="border-2 border-black" key={index} src={item} width={120}/>))}
-        </Link> */}
 
-        <div className=''>    
-          <Link href={`view/${playlist_id}`} className='w-full unselected-grid bg-gray-800 clickable py-6 rounded-2xl'>
-            {videos.map((item, index) => (<img className="border-2 border-gray-400" key={index} src={item} />))}
-          </Link>
-        </div>
+        
         <div className='mt-5 h-[200px]'>    
           <Link href={`view/${playlist_id}`} className='w-full h-full inset-attempt bg-gray-800 clickable py-6 rounded-2xl'>
             {videos.map((item, index) => (<>
@@ -79,5 +72,14 @@ const PlaylistCard = ({avator_url, creator_name, playlist_id, title, videos}: pl
   </>
   )
 }
+
+/* <Link href={`view/${playlist_id}`} className='grid grid-cols-5 pt-5 hover:bg-slate-200'>
+  {videos.map((item, index) => (<img className="border-2 border-black" key={index} src={item} width={120}/>))}
+</Link> */
+/* <div className=''>    
+  <Link href={`view/${playlist_id}`} className='w-full unselected-grid bg-gray-800 clickable py-6 rounded-2xl'>
+    {videos.map((item, index) => (<img className="border-2 border-gray-400" key={index} src={item} />))}
+  </Link>
+</div> */
 
 export default PlaylistCard

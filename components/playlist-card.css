@@ -54,7 +54,6 @@
 
 .inset-attempt> .backup {
   pointer-events: none;
-  transition: z-index 0.25 step-end;
 }
 .showing-0, .hidden-0  {
   left: 20%;
@@ -85,7 +84,6 @@
   width: 30%;
   z-index: 0 ;
 }
-
 
 
 
