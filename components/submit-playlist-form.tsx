@@ -15,7 +15,7 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
   
 
   const isValidPlaylistURL = () => {
-    const pattern = /https:\/\/(?:www\.)?youtube\.com\/(?:playlist\?list=([a-zA-Z0-9_-]{34})|watch\?v=([a-zA-Z0-9_-]{11})(?:&list=([a-zA-Z0-9_-]{34}))?)/;
+    const pattern = /https:\/\/(?:www\.)?youtu(?:be\.com\/(?:playlist\?list=([a-zA-Z0-9_-]{18}|[a-zA-Z0-9_-]{34})|watch\?v=([a-zA-Z0-9_-]{11})&list=([a-zA-Z0-9_-]{18}|[a-zA-Z0-9_-]{34})(?:&index=\d+)?))|\.be\/([a-zA-Z0-9_-]{11})/;
     const match = videoURL.match(pattern);
     return match
   }
@@ -41,8 +41,8 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
       })
       const content = await response.json();
       if (!content.success) throw content.error 
-      console.log("Successfully created playlist")
-      alert("Successfully created")
+      console.log("Successfully created playlist", playlistCode)
+      alert(`Successfully created ${playlistCode}`)
     } catch ( error ) {
       console.log(error)
       alert("Failed to create playlist")
