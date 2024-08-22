@@ -21,7 +21,7 @@ const Create = async() => {
       <h2 className="text-left border border-indigo-400 bg-indigo-200 rounded-xl m-2 p-2">
         Note, it cannot be:
          <p>- A shortened &quot;share url&quot; of a video as this will remove the playlist ID</p>
-         <p className="w-full text-left">- A youtube mix, as those aren't playlists for some reason</p>
+         <p className="w-full text-left">- A youtube mix, as those aren&apos;t playlists for some reason</p>
       </h2>
 
 
