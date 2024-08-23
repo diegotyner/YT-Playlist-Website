@@ -74,7 +74,7 @@ const PreferenceForm = ({ id, username, thumbnail }: PreferenceProps) => {
           ></input>
         </div>
 
-        <div className="border w-7/12 border-teal-600 my-2 flex flex-col items-center py-5 rounded-lg">
+        <div className="border xl:w-7/12 border-teal-600 my-2 flex flex-col items-center py-5 rounded-lg">
           <h2 className="text-xl">Set Profile Picture</h2 >
           <div className="flex items-center justify-evenly md:flex-col m-4 mt-0">
             <div
