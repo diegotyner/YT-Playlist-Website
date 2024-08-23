@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link';
 import { createClient } from '@/utils/supabase/server';
+import CustomAvatar from './avatar';
 
 const Nav = async () => {
   const supabase = createClient();
@@ -24,26 +25,18 @@ const Nav = async () => {
         <div className='flex gap-3 md:gap-5'>
           <Link className='flex items-center' href='/profile'>
             Profile
-            <img src={data.session?.user.user_metadata.custom_metadata?.avatar_url || "/icons/add_pfp.svg"} 
-              alt="Go to profile"
-              className="clickable" // Should probably set image contain properties
-              width={100}
-              height={100}
-            />
+            <div className='ml-4'>
+              <CustomAvatar avatar_url={data.session?.user.user_metadata.custom_metadata?.avatar_url}/>
+            </div>
           </Link>
         </div>
       </div>
 
       {/* Mobile */}
       <div className='sm:hidden flex'>
-      <div className='flex gap-3 md:gap-5'>
+        <div className='flex gap-3 md:gap-5'>
           <Link className='flex items-center' href='/profile'>
-            <img src={data.session?.user.user_metadata.custom_metadata?.avatar_url || "/icons/add_pfp.svg"} 
-              alt="Go to profile"
-              className="clickable" // Should probably set image contain properties
-              width={100}
-              height={100}
-            />
+            <CustomAvatar avatar_url={data.session?.user.user_metadata.custom_metadata?.avatar_url}/>
           </Link>
         </div>
       </div>

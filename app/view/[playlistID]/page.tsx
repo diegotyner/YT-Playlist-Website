@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import VideoCard from '@/components/video-card';
+import CustomAvatar from '@/components/avatar';
 
 /* 
 Returns:
@@ -40,11 +41,18 @@ const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
       </p> // Add loadup screen
     ) : (
       <div className='w-full flex flex-wrap justify-center'>
-        <p className='text-2xl font-bold w-full text-center'>{responseData.playlistData.title}</p>
+        <div className='flex flex-wrap justify-evenly items-center w-full'>
+          <p className='text-2xl font-bold text-center'>{responseData.playlistData.title}</p>
+          
+          <div className='flex flex-col items-center px-12'>
+            <p>{responseData.playlistData.user_preferences.username}</p>
+            <CustomAvatar avatar_url={responseData.playlistData.user_preferences.thumbnail}/>
+          </div>
+        </div>
+        
         <div className='w-full'>
           <hr className='w-56 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700'/>
         </div>
-        <VideoCard title={responseData.playlistData.user_preferences.username} thumbnail={responseData.playlistData.user_preferences.thumbnail}/>
         {responseData.videos.map((item, index) => (
           <VideoCard key={index} title={item.title} thumbnail={item.thumbnail} url={`https://www.youtube.com/watch?v=${item.video_code}&list=${responseData.playlistData.playlist_code}`}/>
         ))}

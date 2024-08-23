@@ -34,6 +34,8 @@ export default function Home() {
 
   return (
     <>
+
+
       {!responseData ? <p>No data yet</p> : (
         <>
           <div className="flex flex-wrap gap-4">

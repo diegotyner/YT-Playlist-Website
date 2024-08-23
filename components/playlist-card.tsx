@@ -81,17 +81,19 @@ const PlaylistCard = ({
 
         {/* Profile view */}
         {!(avatar_url || creator_name) && (
-          <div className="flex items-center justify-between">
-            <h1>{title}</h1>
+          <div className="flex items-center justify-between w-auto mx-3 mt-3">
+            <h1 className="truncate w-5/6">{title}</h1>
             <img
               src="icons/trash.svg"
               alt="wrench icon"
               className="clickable"
               width={30}
               onClick={handleDelete}
-            ></img>
+            />
           </div>
         )}
+
+
       </div>
     </>
   );
