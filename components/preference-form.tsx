@@ -28,11 +28,11 @@ const PreferenceForm = ({ id, username, thumbnail }: PreferenceProps) => {
         if (!response) {
           throw new Error("Update was not successful");
         }
-        if (pathname == "/profile/configure/set-up")
+        if (pathname == "/profile/configure/set-up") {
           router.push("/profile/configure");
+        };
       }
 
-      alert("Preferences saved successfully");
     } catch (error) {
       alert("Submission Failed");
       console.error("Error:", error);
