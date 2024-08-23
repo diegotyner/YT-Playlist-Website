@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-
+      
 
       {!responseData ? <p>No data yet</p> : (
         <>

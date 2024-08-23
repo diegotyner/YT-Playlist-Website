@@ -88,13 +88,16 @@
 
 
 
-.inset-attempt>img.hovered-1, .inset-attempt>img.hovered-3 {
+.inset-attempt>.hovered-1, .inset-attempt>.hovered-3 {
   left: 20%;
   width: 60%;
   z-index: 3;
 }
-.inset-attempt>img.hovered-2, .inset-attempt>img.hovered-4 {
+.inset-attempt>.hovered-2, .inset-attempt>.hovered-4 {
   right: 20%;
   width: 60%;
   z-index: 3;
 }
+
+
+
