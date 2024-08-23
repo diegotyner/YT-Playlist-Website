@@ -5,6 +5,7 @@
 import { useState, useEffect } from "react";
 import PlaylistCard from "@/components/playlist-card";
 import Image from "next/image";
+import PlaylistSkeleton from "@/components/playlist-skeleton";
 
 
 interface Playlist {
@@ -35,8 +36,33 @@ export default function Home() {
   return (
     <>
       
+      {/* Find more elegant way of rendering a page of playlist skeletons */}
+      {/* PlaylistSkeleton*x */}
 
-      {!responseData ? <p>No data yet</p> : (
+      {!responseData ? (<div className="flex flex-wrap gap-4"> 
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+        <PlaylistSkeleton></PlaylistSkeleton>
+      </div>
+
+      ) : (
         <>
           <div className="flex flex-wrap gap-4">
             {responseData.map((item, index) => (<PlaylistCard key={index} avatar_url={item.avator_url} creator_name={item.creator_name} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
