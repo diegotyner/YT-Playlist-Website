@@ -6,10 +6,12 @@ import PlaylistCard from "@/components/playlist-card";
 
 interface ProfilePayload {
   playlist_id: string;
+  playlist_code: string;
   title: string;
   videos: string[];  
   length?: number;
 }
+
 const Profile = () => {
   const [playlists, setPlaylists] = useState<ProfilePayload[] | null>(null);
 
@@ -29,8 +31,8 @@ const Profile = () => {
       This is my profile
 
       {!playlists ? <p>No data yet</p> : (
-        <div className="flex flex-wrap gap-4 m-5">
-          {playlists.map((item, index) => (<PlaylistCard key={index} length={item.length} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
+        <div className="flex flex-wrap gap-4 m-5 w-full">
+          {playlists.map((item, index) => (<PlaylistCard key={index} length={item.length} playlist_code={item.playlist_code} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
         </div>
       )}
     </div>

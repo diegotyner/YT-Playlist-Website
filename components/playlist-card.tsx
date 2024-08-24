@@ -10,22 +10,59 @@ import "@/components/playlist-card.css";
 interface playlistCardProps {
   avatar_url?: string;
   creator_name?: string;
+  playlist_code?: string;
   playlist_id: string;
   title: string;
   videos: string[];
   length?: number;
 }
+interface ViewPayload {
+  length: number,
+  title: string,
+  videos: string[]
+}
+
 const PlaylistCard = ({
   avatar_url,
   creator_name,
   playlist_id,
+  playlist_code,
   title,
   videos,
   length,
 }: playlistCardProps) => {
+  const [dataObject, setDataObject] = useState({
+    videos: videos,
+    title: title,
+    length: length,
+  })
+
   const [deleted, setDeleted] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const thumbnails = videos.map(item => `${item}/hqdefault.jpg`) // EDIT TO GET CORRECT QUALITY
+  const thumbnails = dataObject.videos.map(item => `${item}/hqdefault.jpg`) // EDIT TO GET CORRECT QUALITY
+
+  const handleRefresh = async () => {
+    const createResponse = await fetch(`/api/create/${playlist_code}`, {
+      method: "POST",
+    });
+    if (!createResponse.ok) {
+      alert("Refreshing data failed");
+      return;
+    }
+
+    let viewResponse = await fetch(`/api/profile/update-view/${playlist_id}`)
+    if (!viewResponse.ok) {
+      alert("Refreshing view failed");
+      return;
+    }
+    const data = await viewResponse.json();
+    console.log(data)
+    setDataObject({
+      videos: data[0].videos,
+      title:  data[0].title,
+      length: data[0].length,
+    })
+  }
 
   const handleDelete = async () => {
     const response = await fetch(`/api/delete/${playlist_id}`, {
@@ -51,8 +88,8 @@ const PlaylistCard = ({
           >
             {thumbnails.map((item, index) => (
               <>
-                {length && (<p className="text-gray-400 right-5 top-4">
-                  {length}
+                {dataObject.length && (<p className="text-gray-400 right-5 top-4">
+                  {dataObject.length}
                 </p>)}
                 <div className={`rounded-md shadow-[0_2px_10px] border-2 border-gray-500 showing-${index} overflow-hidden` }>
                   <AspectRatio.Root ratio={16 / 9} >
@@ -91,7 +128,7 @@ const PlaylistCard = ({
 
         {/* Home view */}
         {(avatar_url || creator_name) && (
-          <div className="flex w-full mx-2 mt-2">
+          <div className="flex w-auto mx-2 mt-2">
             <CustomAvatar avatar_url={avatar_url} />
             <div className="flex-grow flex flex-col w-1 pl-3 my-2">
               <h1 className="w-full truncate">{title}</h1>
@@ -100,10 +137,11 @@ const PlaylistCard = ({
           </div>
         )}
         {/* Profile view */}
-        {!(avatar_url || creator_name) && (
-          <div className="flex items-center justify-between w-auto mx-3 mt-3">
-            <h1 className="truncate w-5/6">{title}</h1>
-            <DeleteDialog action={handleDelete} />
+        {!(avatar_url || creator_name) && (playlist_code) && (
+          <div className="flex w-auto mx-2 mt-2 justify-between">
+              <h1 className="truncate w-5/6">{dataObject.title}</h1>
+              <RefreshDialog action={handleRefresh} />
+              <DeleteDialog action={handleDelete} />
           </div>
         )}
 
@@ -121,6 +159,44 @@ const PlaylistCard = ({
   </Link>
 </div> */
 
+const RefreshDialog = ({ action = () => {} }) => (
+  <AlertDialog.Root>
+    <AlertDialog.Trigger asChild>
+      <img
+        src="icons/refresh.svg"
+        alt="wrench icon"
+        className="clickable"
+        width={30}
+      />
+    </AlertDialog.Trigger>
+    <AlertDialog.Portal>
+      <AlertDialog.Overlay className="z-50 bg-black/20 data-[state=open]:animate-overlayShow fixed inset-0" />
+      <AlertDialog.Content className="z-50 data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+        <AlertDialog.Title className="z-50 m-0 text-[17px] font-medium">
+          Do you want to refresh this playlist?
+        </AlertDialog.Title>
+        <AlertDialog.Description className="z-50 text-gray-500 mt-4 mb-5 text-[15px] leading-normal">
+          This will refresh all the data of this playlist, updating ordering and adding videos.
+        </AlertDialog.Description>
+        <div className="z-50 flex justify-end gap-[25px]">
+          <AlertDialog.Cancel asChild>
+            <button className="z-50 text-gray-600 bg-gray-200 hover:bg-gray-300 focus:shadow-gray-600 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-sm">
+              Cancel
+            </button>
+          </AlertDialog.Cancel>
+          <AlertDialog.Action asChild>
+            <button
+              className="z-50 text-gray-100 bg-green-500 hover:bg-green-500/70 focus:shadow-green-700 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-sm"
+              onClick={action}
+            >
+              Refresh Playlist
+            </button>
+          </AlertDialog.Action>
+        </div>
+      </AlertDialog.Content>
+    </AlertDialog.Portal>
+  </AlertDialog.Root>
+);
 const DeleteDialog = ({ action = () => {} }) => (
   <AlertDialog.Root>
     <AlertDialog.Trigger asChild>
