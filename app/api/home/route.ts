@@ -25,7 +25,8 @@ export const GET = async (req: Request) => {
         videos: item.playlist_to_videos.map(item => item.videos.thumbnail),
         title: item.title,
         creator_name: item.user_preferences.username,
-        avator_url: item.user_preferences.thumbnail
+        avator_url: item.user_preferences.thumbnail,
+        length: item.num_vids,
       }
     })
 

@@ -33,6 +33,7 @@ interface PlaylistData {
   title: string;
   user_preferences: { username: string; thumbnail: string; };  
   playlist_to_videos: PlaylistToVideos[];  
+  num_vids?: number;
 }
 
 interface GetHomePageResult {
@@ -47,6 +48,7 @@ export const getHomePage = async (): Promise<GetHomePageResult> => {
   .select(`
     playlist_id,
     title,
+    num_vids,
     user_preferences: user_id (
       username,
       thumbnail
@@ -59,7 +61,7 @@ export const getHomePage = async (): Promise<GetHomePageResult> => {
   `)
   .limit(5, { foreignTable: 'playlist_to_videos' })
   .returns<PlaylistData[]>()
-  .order('created_at', { ascending: false, foreignTable: 'playlist_to_videos' });
+  .order('position', { ascending: true, foreignTable: 'playlist_to_videos' });
   if (creatorError) return {error: creatorError}
 
   return {data: creatorData}

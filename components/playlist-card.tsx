@@ -13,6 +13,7 @@ interface playlistCardProps {
   playlist_id: string;
   title: string;
   videos: string[];
+  length?: number;
 }
 const PlaylistCard = ({
   avatar_url,
@@ -20,9 +21,11 @@ const PlaylistCard = ({
   playlist_id,
   title,
   videos,
+  length,
 }: playlistCardProps) => {
   const [deleted, setDeleted] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const thumbnails = videos.map(item => `${item}/hqdefault.jpg`) // EDIT TO GET CORRECT QUALITY
 
   const handleDelete = async () => {
     const response = await fetch(`/api/delete/${playlist_id}`, {
@@ -40,19 +43,23 @@ const PlaylistCard = ({
 
   return (
     <>
-      <div className="w-[400px] border-2 border-neutral-400 p-3 rounded-2xl">
-        <div className="h-[200px]">
+      <div className="w-full sm:aspect-auto sm:w-[400px] border-2 border-neutral-400 p-3 rounded-2xl">
+        <div className="aspect-video">
           <Link
             href={`view/${playlist_id}`}
             className="w-full h-full inset-attempt bg-gray-800 clickable py-6 rounded-2xl"
           >
-            {videos.map((item, index) => (
+            {thumbnails.map((item, index) => (
               <>
+                {length && (<p className="text-gray-400 right-5 top-4">
+                  {length}
+                </p>)}
                 <div className={`rounded-md shadow-[0_2px_10px] border-2 border-gray-500 showing-${index} overflow-hidden` }>
                   <AspectRatio.Root ratio={16 / 9} >
-                    <Image 
-                      width={320}
-                      height={180}
+                    <img
+                      loading="lazy" 
+                      // width={320}
+                      // height={180}
                       className="h-full w-full object-cover"
                       key={index}
                       src={item}
@@ -66,7 +73,8 @@ const PlaylistCard = ({
                       index === hoveredIndex ? `hovered hovered-${index}` : ""
                     }`}>
                   <AspectRatio.Root ratio={16 /9} >
-                    <Image 
+                    <img
+                      loading="lazy" 
                       width={320}
                       height={180}
                       className="h-full w-full object-cover"
@@ -80,10 +88,10 @@ const PlaylistCard = ({
             ))}
           </Link>
         </div>
-        
+
         {/* Home view */}
         {(avatar_url || creator_name) && (
-          <div className="flex w-auto mx-2 mt-2">
+          <div className="flex w-full mx-2 mt-2">
             <CustomAvatar avatar_url={avatar_url} />
             <div className="flex-grow flex flex-col w-1 pl-3 my-2">
               <h1 className="w-full truncate">{title}</h1>
@@ -91,7 +99,6 @@ const PlaylistCard = ({
             </div>
           </div>
         )}
-
         {/* Profile view */}
         {!(avatar_url || creator_name) && (
           <div className="flex items-center justify-between w-auto mx-3 mt-3">

@@ -2,10 +2,8 @@ import React from 'react'
 
 const PlaylistSkeleton = () => {
   return (
-    <div className='w-[400px] border-2 border-neutral-400 p-3 rounded-2xl'>
-      <div className="h-[200px] w-full inset-attempt bg-gray-800  clickable py-6 rounded-2xl">
-
-      </div>
+    <div className='w-full sm:aspect-auto sm:w-[400px] border-2 border-neutral-400 p-3 rounded-2xl'>
+      <div className="aspect-video w-full bg-gray-800 py-6 rounded-2xl"/>
       <div className="flex w-auto mx-2 mt-2">
         <div className='bg-gray-800  inline-flex h-[75px] w-[75px] select-none items-center justify-center overflow-hidden rounded-full align-middle'>
           <div className={`h-full w-full rounded-[inherit] object-cover border-[3px] border-neutral-400`}></div>

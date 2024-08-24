@@ -12,13 +12,13 @@ interface payload {
   playlistData: {
     user_preferences: { username: string, thumbnail: string},
     title: string,
-    playlist_code: string
+    playlist_code: string,
+    length?: number,
   },
   videos: { title: string, video_id: string, thumbnail: string, video_code: string }[]
 }
 const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
   const [responseData, setResponseData] = useState<payload | null>(null);
-  const examplePlaylist = "64ed6898-1e7a-4411-8fc6-d1bf544e5bc3";
   useEffect(() => {
     fetch(`/api/view/${params.playlistID}`)
       .then((res) => {
@@ -36,16 +36,18 @@ const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
     <>
     {!responseData ? (
       <p>
-        Loading data... (First loadup of backend server tends to be a bit
-        slow, 5 seconds expected)
+        Loading data...
       </p> // Add loadup screen
     ) : (
       <div className='w-full flex flex-wrap justify-center'>
         <div className='flex flex-wrap justify-evenly items-center w-full'>
-          <p className='text-2xl font-bold text-center'>{responseData.playlistData.title}</p>
+          <div>
+            <h2 className='text-2xl font-bold text-center'>{responseData.playlistData.title}</h2>
+            <p className='text-gray-500/90 text-lg pt-1 w-full text-center font-bold'>{responseData.playlistData.length && (`Length - ${responseData.playlistData.length}`)}</p>
+          </div>
           
-          <div className='flex flex-col items-center px-12'>
-            <p>{responseData.playlistData.user_preferences.username}</p>
+          <div className='flex flex-col items-center px-12 gap-2'>
+            <p className=''>{responseData.playlistData.user_preferences.username}</p>
             <CustomAvatar avatar_url={responseData.playlistData.user_preferences.thumbnail}/>
           </div>
         </div>

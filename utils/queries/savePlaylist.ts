@@ -10,7 +10,8 @@ export async function savePlaylist(userId: string, playlistPayload: payload) {
       .upsert({
         user_id: userId,
         title: playlistPayload.metadata.title,
-        playlist_code: playlistPayload.metadata.code
+        playlist_code: playlistPayload.metadata.code,
+        num_vids: playlistPayload.metadata.length,
       }, {onConflict: 'user_id, playlist_code'})
       .select()  
     const videoPromise = supabase
@@ -20,7 +21,7 @@ export async function savePlaylist(userId: string, playlistPayload: payload) {
           .filter(item => item.snippet.title !== 'Deleted video') 
           .map(item => ({
             title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.high.url,
+            thumbnail: `https://i.ytimg.com/vi/${item.snippet.resourceId.videoId}`,
             video_code: item.snippet.resourceId.videoId,
           })), {onConflict: 'video_code'}
       )
@@ -33,8 +34,8 @@ export async function savePlaylist(userId: string, playlistPayload: payload) {
     const { data: relationData, error: relationError } = await supabase
       .from("playlist_to_videos")
       .upsert(
-        vidData.map(items => ({playlist_id: playlistData[0].playlist_id, video_id: items.video_id}))
-      , {onConflict: 'playlist_id, video_id', ignoreDuplicates: true})
+        vidData.map((items, index) => ({playlist_id: playlistData[0].playlist_id, video_id: items.video_id, position: index}))
+      , {onConflict: 'playlist_id, video_id'})
     if (relationError) throw relationError;
 
     return { success: true };

@@ -11,8 +11,9 @@ const Nav = async () => {
 
   return (
     <nav className='flex justify-between items-center w-full mb-16 pt-3'>
-      <Link href='/' className='flex gap-2 flex-center'>
-        Home
+      <Link href='/' className='flex items-center gap-5 flex-center'>
+        <img src='/icons/logo.svg' width={75}/>
+        <p className='hidden sm:block'>Home</p>
       </Link>
       
       

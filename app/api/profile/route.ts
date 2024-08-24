@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabase/server";
 interface PlaylistData {
   playlist_id: string;
   title: string;
+  num_vids?: number;
   playlist_to_videos: { videos: {thumbnail: string;} }[];  
 }
 export const GET = async (req: Request, { params }: {params: {userID: string}}) => {
@@ -21,6 +22,7 @@ export const GET = async (req: Request, { params }: {params: {userID: string}}) 
     .select(`
       playlist_id,
       title,
+      num_vids,
       playlist_to_videos: playlist_id (
         videos: video_id (
           thumbnail
@@ -30,9 +32,9 @@ export const GET = async (req: Request, { params }: {params: {userID: string}}) 
     .limit(5, { foreignTable: 'playlist_to_videos' })
     .eq('user_id', userId)
     .returns<PlaylistData[]>()
-    .order('created_at', { ascending: false, foreignTable: 'playlist_to_videos' });
+    .order('position', { ascending: true, foreignTable: 'playlist_to_videos' });
 
-  const payload = data?.map(item => ({playlist_id: item.playlist_id, title: item.title, videos: item.playlist_to_videos.map(item => item.videos.thumbnail)}))
+  const payload = data?.map(item => ({length: item.num_vids, playlist_id: item.playlist_id, title: item.title, videos: item.playlist_to_videos.map(item => item.videos.thumbnail)}))
   return new Response(JSON.stringify(payload), { status: 200,   headers: { 'Cache-Control': 'no-store' }, })
   } catch (error) {
     console.log("Error fetching prompts:", error);

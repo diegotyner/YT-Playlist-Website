@@ -23,6 +23,7 @@ export const POST = async (req: Request, { params }: {params: {playlistID: strin
     
     // title, length, creator, thumbnail
     const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
+    // allItems.forEach((item, index) => {if (item.snippet) item.snippet = {...item.snippet, position: index}})
     const responsePayload = {
       metadata,
       items: allItems
@@ -50,35 +51,35 @@ Returns: {
   }
 }
 */
-export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
-  try {
-    // await connectToDB();
+// export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
+//   try {
+//     // await connectToDB();
 
-    if (!params.playlistID) {
-      return new Response("No playlistID provided", { status: 400 })
-    }
+//     if (!params.playlistID) {
+//       return new Response("No playlistID provided", { status: 400 })
+//     }
 
-    let allItems: PlaylistItem[] = []
-    let nextPageToken: string | undefined = '';
-    do {
-      const data = await fetchPlaylistItems(params.playlistID, nextPageToken)
-      allItems = allItems.concat(data.items)
-      nextPageToken = data?.nextPageToken
-      console.log("One loop")
-    } while (nextPageToken);
+//     let allItems: PlaylistItem[] = []
+//     let nextPageToken: string | undefined = '';
+//     do {
+//       const data = await fetchPlaylistItems(params.playlistID, nextPageToken)
+//       allItems = allItems.concat(data.items)
+//       nextPageToken = data?.nextPageToken
+//       console.log("One loop")
+//     } while (nextPageToken);
      
-    // title, length, creator, thumbnail
-    const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
-    const responsePayload = {
-      metadata,
-      items: allItems
-    };
-    return new Response(JSON.stringify(responsePayload), { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return new Response(JSON.stringify({ error: "Failed to fetch all prompts" }), { status: 500 });
-  }
-};
+//     // title, length, creator, thumbnail
+//     const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
+//     const responsePayload = {
+//       metadata,
+//       items: allItems
+//     };
+//     return new Response(JSON.stringify(responsePayload), { status: 200 });
+//   } catch (error) {
+//     console.error(error);
+//     return new Response(JSON.stringify({ error: "Failed to fetch all prompts" }), { status: 500 });
+//   }
+// };
 
 const fetchPlaylistItems = async (playlistId: string, pageToken = '') => {
   const url = new URL(`${API_URL}playlistItems`);
