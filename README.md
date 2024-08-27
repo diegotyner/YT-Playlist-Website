@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/diegotyner/YT-Playlist-Website">
-    <img src="public/icons/logo.svg" alt="Logo" width="80" height="80">
+    <img src="public/icons/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Youtube Playlist Website</h3>
@@ -170,16 +170,7 @@ Project Link: [https://github.com/diegotyner/YT-Playlist-Website](https://github
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/diegotyner/YT-Playlist-Website.svg?style=for-the-badge
-[contributors-url]: https://github.com/diegotyner/YT-Playlist-Website/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/diegotyner/YT-Playlist-Website.svg?style=for-the-badge
-[forks-url]: https://github.com/diegotyner/YT-Playlist-Website/network/members
-[stars-shield]: https://img.shields.io/github/stars/diegotyner/YT-Playlist-Website.svg?style=for-the-badge
-[stars-url]: https://github.com/diegotyner/YT-Playlist-Website/stargazers
-[issues-shield]: https://img.shields.io/github/issues/diegotyner/YT-Playlist-Website.svg?style=for-the-badge
-[issues-url]: https://github.com/diegotyner/YT-Playlist-Website/issues
-[license-shield]: https://img.shields.io/github/license/diegotyner/YT-Playlist-Website.svg?style=for-the-badge
-[license-url]: https://github.com/diegotyner/YT-Playlist-Website/blob/master/LICENSE.txt
+
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/diego-tyner
 [product-screenshot]: readme_images/webite_screenshot.PNG
