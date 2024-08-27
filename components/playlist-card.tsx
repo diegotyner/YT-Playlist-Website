@@ -91,7 +91,7 @@ const PlaylistCard = ({
                 {dataObject.length && (<p className="text-gray-400 right-5 top-4">
                   {dataObject.length}
                 </p>)}
-                <div className={`rounded-md shadow-[0_2px_10px] border-2 border-gray-500 showing-${index} overflow-hidden` }>
+                <div className={`rounded-md shadow-[0_2px_10px] border-2 border-gray-500 bg-gray-800 showing-${index} overflow-hidden` }>
                   <AspectRatio.Root ratio={16 / 9} >
                     <img
                       loading="lazy" 
@@ -106,7 +106,7 @@ const PlaylistCard = ({
                     />
                   </AspectRatio.Root>
                 </div>
-                <div className={`rounded-md shadow-[0_2px_10px] border-2 border-gray-500 backup overflow-hidden hidden-${index} ${
+                <div className={`rounded-md shadow-[0_2px_10px] border-2 border-gray-500 bg-gray-800 backup overflow-hidden hidden-${index} ${
                       index === hoveredIndex ? `hovered hovered-${index}` : ""
                     }`}>
                   <AspectRatio.Root ratio={16 /9} >
