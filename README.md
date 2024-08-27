@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/diegotyner/YT-Playlist-Website">
-    <img src="public/icons/logo.png" alt="Logo" width="80" height="80">
+    <img src="public/icons/logo.png" alt="Logo" width="200" height="120">
   </a>
 
 <h3 align="center">Youtube Playlist Website</h3>
