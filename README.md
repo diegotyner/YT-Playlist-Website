@@ -110,13 +110,6 @@ The rest of the features need to be signed in for...
 
 To get this to work locally...
 
-### Prerequisites
-
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
 ### Installation
 
 1. Download all of the dependencies listed in the package.json 
