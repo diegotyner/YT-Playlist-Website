@@ -49,7 +49,6 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -182,5 +181,5 @@ Project Link: [https://github.com/diegotyner/YT-Playlist-Website](https://github
 [Tailwind-url]: https://tailwindcss.com
 [Supabase]: https://img.shields.io/badge/supabase-121212?style=for-the-badge&logo=supabase&logoColor=3ecf8e
 [Supabase-url]: https://supabase.com
-[Radixui]: https://img.shields.io/badge/radix%20ui-322637?style=for-the-badge&logo=radixui&logoColor=3ecf8e
+[Radixui]: https://img.shields.io/badge/radix%20ui-322637?style=for-the-badge&logo=radixui&logoColor=#edeef0
 [Radixui-url]: https://www.radix-ui.com/
