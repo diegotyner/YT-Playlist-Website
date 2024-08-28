@@ -4,6 +4,43 @@ import { savePlaylist } from "@/utils/queries/savePlaylist";
 const API_URL = process.env.YT_DATA_API_URL;
 const API_KEY = process.env.YT_DATA_API_KEY;
 
+// GET is used for downloading file, POST is used for saving playlist to user
+
+
+
+export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
+  try {
+    if (!params.playlistID) {
+      return new Response("No playlistID provided", { status: 400 })
+    }
+
+    let allItems: PlaylistItem[] = []
+    let nextPageToken: string | undefined = '';
+    do {
+      const data = await fetchPlaylistItems(params.playlistID, nextPageToken)
+      allItems = allItems.concat(data.items)
+      nextPageToken = data?.nextPageToken
+      console.log("One loop")
+    } while (nextPageToken);
+    
+    // title, length, creator, thumbnail
+    const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
+    const responsePayload = {
+      metadata,
+      items: allItems
+    };
+
+    const sanitizedTitle = metadata.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    const fileName = `${sanitizedTitle}_playlist.json`;
+    return new Response(JSON.stringify(responsePayload), { status: 200, headers: {
+      'Content-Type': 'application/json',
+      'Content-Disposition': `attachment; filename="${fileName}"`
+    }});
+  } catch( error ) {
+    console.error(error);
+    return new Response(JSON.stringify({ error: "Failed to add playlist" }), { status: 500 }); 
+  }
+};
 
 
 export const POST = async (req: Request, { params }: {params: {playlistID: string, userID: string}}) => {
@@ -23,7 +60,6 @@ export const POST = async (req: Request, { params }: {params: {playlistID: strin
     
     // title, length, creator, thumbnail
     const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
-    // allItems.forEach((item, index) => {if (item.snippet) item.snippet = {...item.snippet, position: index}})
     const responsePayload = {
       metadata,
       items: allItems
@@ -37,49 +73,6 @@ export const POST = async (req: Request, { params }: {params: {playlistID: strin
   }
 };
 
-
-/*
-Returns: {
-  metadata: {
-    creator,
-    length,
-    thumbnails: { [key: string]: { url: string } },
-    title
-  },
-  payload: { 
-    type Snippet = { publishedAt: string; channelId: string; title: string; description: string; thumbnails: { [key: string]: { url: string } }; channelTitle: string; playlistId: string; position: number; resourceId: { kind: string; videoId: string }; videoOwnerChannelTitle: string; videoOwnerChannelId: string; };
-  }
-}
-*/
-// export const GET = async (req: Request, { params }: {params: {playlistID: string}}) => {
-//   try {
-//     // await connectToDB();
-
-//     if (!params.playlistID) {
-//       return new Response("No playlistID provided", { status: 400 })
-//     }
-
-//     let allItems: PlaylistItem[] = []
-//     let nextPageToken: string | undefined = '';
-//     do {
-//       const data = await fetchPlaylistItems(params.playlistID, nextPageToken)
-//       allItems = allItems.concat(data.items)
-//       nextPageToken = data?.nextPageToken
-//       console.log("One loop")
-//     } while (nextPageToken);
-     
-//     // title, length, creator, thumbnail
-//     const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
-//     const responsePayload = {
-//       metadata,
-//       items: allItems
-//     };
-//     return new Response(JSON.stringify(responsePayload), { status: 200 });
-//   } catch (error) {
-//     console.error(error);
-//     return new Response(JSON.stringify({ error: "Failed to fetch all prompts" }), { status: 500 });
-//   }
-// };
 
 const fetchPlaylistItems = async (playlistId: string, pageToken = '') => {
   const url = new URL(`${API_URL}playlistItems`);
