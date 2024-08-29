@@ -29,7 +29,11 @@ const Profile = () => {
     <div className="w-full flex flex-col items-center">
       <Link href={'/profile/configure'} className="clickable bg-green-400 rounded-2xl text-center px-3 m-1">Configure</Link>
       This is my profile
-
+      <form action="/auth/signout" method="post">
+        <button className="button block" type="submit">
+          Sign out
+        </button>
+      </form>
       {!playlists ? <p>No data yet</p> : (
         <div className="flex flex-wrap gap-4 m-5 w-full">
           {playlists.map((item, index) => (<PlaylistCard key={index} length={item.length} playlist_code={item.playlist_code} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
