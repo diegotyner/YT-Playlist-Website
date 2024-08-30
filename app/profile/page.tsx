@@ -1,8 +1,7 @@
-'use client'
+'use server'
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import PlaylistCard from "@/components/playlist-card";
+import ProfilePlaylists from "@/components/profile-playlists";
 
 interface ProfilePayload {
   playlist_id: string;
@@ -13,32 +12,32 @@ interface ProfilePayload {
 }
 
 const Profile = () => {
-  const [playlists, setPlaylists] = useState<ProfilePayload[] | null>(null);
-
-  useEffect(() => {
-    const fetchPlaylists = async () => {
-      const response = await fetch('/api/profile');
-      const data = await response.json();
-      setPlaylists(data);
-    };
-
-    fetchPlaylists();
-  }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <Link href={'/profile/configure'} className="clickable bg-green-400 rounded-2xl text-center px-3 m-1">Configure</Link>
-      This is my profile
-      <form action="/auth/signout" method="post">
-        <button className="button block" type="submit">
-          Sign out
-        </button>
-      </form>
-      {!playlists ? <p>No data yet</p> : (
-        <div className="flex flex-wrap gap-4 m-5 w-full">
-          {playlists.map((item, index) => (<PlaylistCard key={index} length={item.length} playlist_code={item.playlist_code} playlist_id={item.playlist_id} title={item.title} videos={item.videos}/>))}
-        </div>
-      )}
+    <div className="w-full h-full flex flex-col items-center text">
+      {/* <div className="w-[75px] h-[75px] relative flex-shrink-0">
+        <MyAvatar />
+        <img src="assets/horns.png" className="absolute inset-0"/>
+      </div> */}
+
+      <div className="w-full flex justify-end gap-4">
+        <Link href={'/profile/configure'} className="clickable bg-green-400 rounded-2xl text-center px-3 m-1">
+          Edit Preferences 
+        </Link>
+        <form action="/auth/signout" method="post">
+          <button className="clickable bg-red-400 rounded-2xl text-center px-3 m-1" type="submit">
+            Sign out
+          </button>
+        </form>
+      </div>
+
+
+      
+      <h1 className="text-xl my-10">My Playlists</h1>
+
+
+      
+      <ProfilePlaylists />
     </div>
   );
 };

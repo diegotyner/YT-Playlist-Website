@@ -2,17 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body {
-  font-family: 'Inter', sans-serif;
+html, body {
+  font-family: "Inter", sans-serif;
+  height: 100%;
+  margin: 0;
 }
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col mx-auto sm:px-16 px-6;
+  @apply h-auto relative z-10 sm:px-16 px-6;
 }
 .clickable {
-  @apply hover:cursor-pointer hover:opacity-75
+  @apply hover:cursor-pointer hover:opacity-75;
 }
-
-
-

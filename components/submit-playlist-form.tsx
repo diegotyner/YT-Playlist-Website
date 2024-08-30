@@ -67,39 +67,39 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
       });
       if (response.ok) {
         const blob = await response.blob();
-        const contentDisposition = response.headers.get('Content-Disposition');
+        const contentDisposition = response.headers.get("Content-Disposition");
         let filename = `playlist_${playlistCode}.json`; // Default filename
-    
+
         // Extract filename from Content-Disposition header if available
         if (contentDisposition) {
-          console.log(contentDisposition)
+          console.log(contentDisposition);
           const match = contentDisposition.match(/filename="?([^"]+)"?/);
-          console.log(match)
+          console.log(match);
           if (match && match[1]) {
             filename = match[1];
-            console.log(filename)
+            console.log(filename);
           }
         }
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
         a.download = `${filename}`;
         document.body.appendChild(a);
         a.click();
         a.remove();
-        URL.revokeObjectURL(url)
-      } else throw Error
+        URL.revokeObjectURL(url);
+      } else throw Error;
     } catch (error) {
       console.log(error);
       alert("Failed to create playlist");
     }
-  
-  }
-  
+  };
 
   return (
-    <div className="w-full">
-      <label htmlFor="videoURL">Video URL</label>
+    <div className="w-full px-[25%] pt-3 flex flex-col items-center">
+      <label htmlFor="videoURL" className="text-xl">
+        Video URL
+      </label>
       <textarea
         ref={textareaRef}
         className="border-2 border-blue-900"
@@ -110,7 +110,8 @@ const PlaylistURLForm = ({ id }: { id: string }) => {
         rows={1}
         style={{ resize: "none", overflow: "hidden", width: "100%" }}
       />
-      <div className="flex justify-between mt-3">
+
+      <div className="w-full flex justify-between mt-3 px-3">
         <button
           className="clickable bg-green-400 rounded-full py-1 px-3 mb-10"
           onClick={handleAdd}

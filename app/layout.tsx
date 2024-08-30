@@ -22,9 +22,11 @@ export default function RootLayout({
           <div className="gradient" />
         </div>
 
-        <div className="app">
+        <div className="flex flex-col h-full">
           <Nav />
-          {children}
+          <div className="app flex-grow">
+            {children}
+          </div>
         </div>
       </body>
     </html>
