@@ -19,6 +19,9 @@ interface payload {
 }
 const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
   const [responseData, setResponseData] = useState<payload | null>(null);
+  const [searchQuery, setSearchQuery] = useState("")
+  const filteredVideos = responseData?.videos?.filter((item) => item.title.toLowerCase().includes(searchQuery.toLowerCase()))
+
   useEffect(() => {
     fetch(`/api/view/${params.playlistID}`)
       .then((res) => {
@@ -30,6 +33,8 @@ const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
       });
     console.log(responseData)
   }, []);
+
+
   
 
   return (
@@ -53,9 +58,20 @@ const ViewPlaylist = ({ params }: {params: {playlistID: string}}) => {
         </div>
         
         <div className='w-full'>
-          <hr className='w-56 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700'/>
+          <hr className='w-56 h-1 mx-auto my-4 border-0 rounded md:my-10 bg-gray-700'/>
         </div>
-        {responseData.videos.map((item, index) => (
+
+        <div className='w-full flex justify-center'>
+          <input 
+            className='bg-gray-700 placeholder-gray-500/90 late text-white rounded-full focus:outline-none focus:ring-1 focus:ring-gray-500/90 w-1/2 mb-4 md:mb-10 p-4'
+            type='text' 
+            placeholder='Search...'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
+        {filteredVideos?.map((item, index) => (
           <VideoCard key={index} title={item.title} thumbnail={item.thumbnail} url={`https://www.youtube.com/watch?v=${item.video_code}&list=${responseData.playlistData.playlist_code}`}/>
         ))}
       </div>
