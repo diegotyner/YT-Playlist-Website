@@ -17,8 +17,7 @@ export async function savePlaylist(userId: string, playlistPayload: payload) {
     const videoPromise = supabase
       .from("videos")
       .upsert(
-        playlistPayload.items // doing a map if the video is not deleted
-          .filter(item => item.snippet.title !== 'Deleted video') 
+        playlistPayload.items 
           .map(item => ({
             title: item.snippet.title,
             thumbnail: `https://i.ytimg.com/vi/${item.snippet.resourceId.videoId}`,

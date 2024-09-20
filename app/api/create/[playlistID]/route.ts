@@ -57,12 +57,20 @@ export const POST = async (req: Request, { params }: {params: {playlistID: strin
       nextPageToken = data?.nextPageToken
       console.log("One loop")
     } while (nextPageToken);
+
+    const uniqueVideos = Array.from(
+      new Map(
+        allItems
+          .filter(item => item.snippet.title !== 'Deleted video') // filter out deleted videos
+          .map(item => [item.snippet.resourceId.videoId, item]) // map video_code as key
+      ).values() // remove duplicates by keeping only the first instance of each video_code
+    );
     
     // title, length, creator, thumbnail
-    const metadata = await fetchPlaylistMetadata(params.playlistID, allItems.length);
+    const metadata = await fetchPlaylistMetadata(params.playlistID, uniqueVideos.length);
     const responsePayload = {
       metadata,
-      items: allItems
+      items: uniqueVideos
     };
 
     const saveResponse = await savePlaylist(params.userID, responsePayload);
